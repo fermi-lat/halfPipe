@@ -1,0 +1,28 @@
+This directory contains various files that affect aspects of the
+operation of the HalfPipe:
+
+flavor_* -- specify various flavors of FlightOps code to be used for
+	setting up the execution environment.  In a checked-out
+	instance used by the HalfPipe, one of these files should be
+	symlinked to "flavor".
+
+haltCleanup -- if present, do not perform cleanup actions
+
+haltL1 -- if present, do not launch the L1 processing task
+
+haltOnline -- if present, do not launch the Online analyses.
+
+maxEvents -- if non-empty, use the contents to override the max events
+	per chunk setting for writeMerge.exe in mergeEvt.sh
+
+overrideLATCdecode.sh -- if executable and the output is non-empty use
+	the result to override the LATC key in makeEvt.sh.
+
+overrideLATCmerge.sh -- if executable and the output is non-empty use
+	the result to override the LATC key in mergeEvt.sh.
+
+sitedep.ini -- if non-empty, set ISOC_SITEDEP to point to the file in
+	launchL1.sh.
+
+stagedir -- specify the path to which halfpipe output should be staged
+	for consumption by L1Proc.  Used in makeEvt.sh and launchL1.sh

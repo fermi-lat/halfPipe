@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline xmlns="http://glast-ground.slac.stanford.edu/pipeline" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="http://glast-ground.slac.stanford.edu/pipeline http://glast-ground.slac.stanford.edu/Pipeline-II/schemas/2.0/pipeline.xsd">
+<!--
+    Changes:
+    2008-03-06 RBL: move long jobs to glastdataq to get preemption
+    2007-10-09 RBL: bump revision to clear stream list in Prod
+    2007-10-09 RBL: bump revision to clear stream list in Prod
+-->
+  <task name="HalfPipe" type="Data" version="1.41">
+    <prerequisites>
+      <prerequisite name="taskBase" type="string" />
+      <prerequisite name="outputBase" type="string" />
+      <prerequisite name="downlinkID" type="integer" />
+      <prerequisite name="numChunks" type="integer" />
+      <prerequisite name="level1Name" type="string" />
+      <prerequisite name="startL1" type="integer" />
+      <prerequisite name="maxEvents" type="integer" />
+      <prerequisite name="fosFlavor" type="string" />
+      <prerequisite name="fmxRoot" type="string" />
+      <prerequisite name="pipelineFlavor" type="string" />
+      <prerequisite name="startOnline" type="integer" />
+      <prerequisite name="onlineName" type="string" />
+    </prerequisites>
+    <process name="launchChunks">
+      <script><![CDATA[
+            
+            for i in range(0, numChunks):
+               pipeline.createSubstream("doChunk", i+1)
+            
+         ]]></script>
+      <createsSubtasks>
+        <subtask>doChunk</subtask>
+      </createsSubtasks>
+    </process>
+    <process name="mergeIndices">
+      <variables>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_NUMCHUNKS">${numChunks}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	<var name="HALFPIPE_MERGEIDX">${taskBase}/scripts/mergeidx.py</var>
+	<var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	<var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+      </variables>
+      <job batchOptions=" -q short -R &quot;select[ ! rhel30 ]&quot; " executable="${taskBase}/scripts/mergeIndices.sh" />
+      <depends>
+        <after process="doChunk.makeEvt" status="SUCCESS" />
+      </depends>
+      <createsSubtasks>
+	<subtask>doMerge</subtask>
+      </createsSubtasks>
+    </process>
+    <process name="launchOnline">
+      <variables>
+	<var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	<var name="HALFPIPE_PLFLAVOR">${pipelineFlavor}</var>
+	<var name="HALFPIPE_ONLINETASK">${onlineName}</var>
+	<var name="HALFPIPE_STARTONLINE">${startOnline}</var>
+      </variables>
+      <job batchOptions=" -q glastdataq -E &quot;${taskBase}/scripts/lockFile.sh ${outputBase}/lock/launchOnline&quot; " executable="${taskBase}/scripts/launchOnline.sh" />
+      <depends>
+	<after process="doMerge.mergeEvt" status="SUCCESS" />
+      </depends>
+    </process>
+    <process name="launchL1">
+      <variables>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+        <var name="HALFPIPE_L1TASK">${level1Name}</var>
+	<var name="HALFPIPE_STARTL1">${startL1}</var>
+	<var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	<var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+	<var name="HALFPIPE_PLFLAVOR">${pipelineFlavor}</var>
+      </variables>
+      <job batchOptions=" -q medium " executable="${taskBase}/scripts/launchL1.sh" />
+      <depends>
+	<after process="doMerge.mergeEvt" status="SUCCESS" />
+      </depends>
+    </process>
+    <process name="cleanup">
+      <variables>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+      </variables>
+      <job batchOptions=" -q glastdataq -E &quot;${taskBase}/scripts/lockFile.sh ${outputBase}/lock/cleanup&quot; " executable="${taskBase}/scripts/cleanup.sh" />
+      <depends>
+	<after process="launchL1" status="SUCCESS" />
+	<after process="launchOnline" status="SUCCESS" />
+      </depends>
+    </process>
+    <task name="doChunk" type="Data" version="1.0">
+      <process name="makeEvt">
+        <variables>
+	  <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+	  <var name="HALFPIPE_NUMCHUNKS">${numChunks}</var>
+	  <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	  <var name="HALFPIPE_CHUNKID">${format(pipeline.stream, "%05d")}</var>
+	  <var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	  <var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+        </variables>
+        <job batchOptions=" -q glastdataq -E &quot;${taskBase}/scripts/checkNFS.sh&quot; " executable="${taskBase}/scripts/makeEvt.sh" />
+      </process>
+    </task>
+    <task name="doMerge" type="Data" version="1.0">
+      <process name="mergeEvt">
+        <variables>
+	  <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+	  <var name="HALFPIPE_NUMCHUNKS">${numChunks}</var>
+	  <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	  <var name="HALFPIPE_MAXEVENTS">${maxEvents}</var>
+	  <var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	  <var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+        </variables>
+        <job batchOptions=" -q glastdataq -E &quot;${taskBase}/scripts/lockFile.sh ${outputBase}/lock/${HALFPIPE_RUNSTART}&quot; " executable="${taskBase}/scripts/mergeEvt.sh" />
+      </process>
+    </task>
+  </task>
+</pipeline>

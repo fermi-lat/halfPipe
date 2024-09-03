@@ -1,0 +1,1768 @@
+------------------------------------------------------------
+User: blee  Fri Jul 25 09:35:17 PDT 2008
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+updated requirements file
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 09:27:48 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	RunCleanup.py makeEvt.sh 
+Log Message:
+For LONE-106 enable automatic cleanup
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 09:11:34 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeEvt.sh 
+Log Message:
+For LONE-62 set LSEWriter env vars for MOOT key/alias
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:51:13 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+For LONE-80 redux, refactored merging-output loop completely
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:43:19 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	makeEvt.sh 
+Log Message:
+create streamwide lockfile
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:41:35 PDT 2008
+CHS/halfPipe/scripts
+
+Removed Files:
+	mergeidx.py 
+Log Message:
+remove obsolete file
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:38:46 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	AcqSummary.py 
+Log Message:
+For LONE-104 use tcompleted to find applicable LPASETDEFAULT
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:34:33 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchOnline.sh cleanup.sh mergeEvt.sh lockFile.sh 
+Log Message:
+For LONE-102 close loophole in locking scheme
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:17:24 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh 
+Log Message:
+added extra bailout before staging, and clean up magic-7 txt file
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:16:00 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchOnline.sh 
+Log Message:
+added local bailout feature
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 08:06:24 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh mergeEvt.sh 
+Log Message:
+For LONE-103 use startedAt for mergeEvt substream ID
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 07:50:23 PDT 2008
+CHS/halfPipe/scripts
+
+Added Files:
+	RunCleanup.py 
+Log Message:
+add python cleanup script
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 07:48:17 PDT 2008
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+Add locking to cleanup step
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 25 07:46:57 PDT 2008
+CHS/halfPipe/config
+
+Added Files:
+	haltStage stagedir.AFS.6 
+Log Message:
+added config files for additional staging destination and staging-bypass
+    *
+------------------------------------------------------------
+User: blee  Fri Jul 11 23:18:24 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh launchL1.sh 
+Log Message:
+For LONE-69 block L1proc cleanup before chunk-tokens are delivered
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r1p0, operation: add
+Package: halfPipe
+User: blee  Sat Jul  5 18:39:57 2008
+Files:
+  halfPipe/ChangeLog  1.124
+  halfPipe/cmt/requirements  1.8
+  halfPipe/config/maxEvents.125K  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/ChunkScaling  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/LPAtype.LPA  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/LCItype  1.1
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/maxEvents.1M  1.1
+  halfPipe/config/stagedir.NFS  1.2
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/LPAtype  1.1
+  halfPipe/config/LPAtype.MC  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir.AFS  1.1
+  halfPipe/config/README  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/scripts/lockFile.sh  1.1
+  halfPipe/scripts/AcqSummary.py  1.2
+  halfPipe/scripts/launchL1.sh  1.18
+  halfPipe/scripts/checkNFS.sh  1.3
+  halfPipe/scripts/mergeEvt.sh  1.21
+  halfPipe/scripts/launchOnline.sh  1.13
+  halfPipe/scripts/DiagRet.py  1.1
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/AcqToAlgAndQueue.py  1.3
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.12
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.17
+  halfPipe/xml/HalfPipe.xml  1.40
+
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 18:39:36 PDT 2008
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+update version string
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:55:22 PDT 2008
+CHS/halfPipe/config
+
+Modified Files:
+	stagedir.NFS 
+Log Message:
+move test stagedir to u28
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:52:27 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeEvt.sh 
+Log Message:
+fix typo
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:52:16 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchOnline.sh 
+Log Message:
+For LONE-85 remove .evt file if no online analysis is mapped
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:46:51 PDT 2008
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+For LONE-86 handle concurrency better
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:46:51 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchOnline.sh mergeEvt.sh 
+Added Files:
+	lockFile.sh 
+Log Message:
+For LONE-86 handle concurrency better
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:30:02 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeEvt.sh 
+Log Message:
+For LONE-85 clean up merge-related tmp files
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:21:27 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh 
+Log Message:
+For LONE-84 check for local haltL1 file
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  5 17:18:06 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	AcqSummary.py 
+Log Message:
+For LONE-83 recognize close-action 'pause' as a valid action for run completion
+    *
+------------------------------------------------------------
+User: blee  Thu Jul  3 10:18:58 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+For LONE-80 skip previous merged-span file in current output directory
+    *
+------------------------------------------------------------
+User: blee  Thu Jul  3 09:43:07 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+For LONE-80 update previously-delivered-event handling logic to prevent disjoint spans from being written to the same output file
+    *
+------------------------------------------------------------
+User: blee  Thu Jul  3 08:51:11 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+commit in-situ mods
+    *
+------------------------------------------------------------
+User: blee  Fri Jun 27 16:50:24 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh 
+Log Message:
+For LONE-74 force string interpretaion of HALFPIPE_RUNSTART value
+    *
+------------------------------------------------------------
+User: blee  Fri Jun 27 16:47:45 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+For LONE-73 fix gaps-file creation
+    *
+------------------------------------------------------------
+User: blee  Fri Jun 27 16:44:12 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh 
+Added Files:
+	DiagRet.py 
+Log Message:
+For LONE-32 make magic-7 quaternion representation double-precision
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p4, operation: add
+Package: halfPipe
+User: blee  Sun Jun 22 13:23:34 2008
+Files:
+  halfPipe/ChangeLog  1.105
+  halfPipe/cmt/requirements  1.7
+  halfPipe/config/maxEvents.125K  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/ChunkScaling  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/LPAtype.LPA  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/LCItype  1.1
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/maxEvents.1M  1.1
+  halfPipe/config/stagedir.NFS  1.1
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/LPAtype  1.1
+  halfPipe/config/LPAtype.MC  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir.AFS  1.1
+  halfPipe/config/README  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/scripts/AcqSummary.py  1.1
+  halfPipe/scripts/launchL1.sh  1.16
+  halfPipe/scripts/checkNFS.sh  1.3
+  halfPipe/scripts/mergeEvt.sh  1.18
+  halfPipe/scripts/launchOnline.sh  1.11
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/AcqToAlgAndQueue.py  1.3
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.8
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.16
+  halfPipe/xml/HalfPipe.xml  1.39
+
+    *
+------------------------------------------------------------
+User: blee  Sun Jun 22 13:23:18 PDT 2008
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+Fix LONE-64 (mergeIndices not on rhel30 machines) and LONE-65 (typo in mergeEvt.sh)
+    *
+------------------------------------------------------------
+User: blee  Sun Jun 22 13:23:18 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeEvt.sh 
+Log Message:
+Fix LONE-64 (mergeIndices not on rhel30 machines) and LONE-65 (typo in mergeEvt.sh)
+    *
+------------------------------------------------------------
+User: blee  Sun Jun 22 13:23:18 PDT 2008
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Fix LONE-64 (mergeIndices not on rhel30 machines) and LONE-65 (typo in mergeEvt.sh)
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p3, operation: add
+Package: halfPipe
+User: blee  Mon Apr 28 11:26:50 2008
+Files:
+  halfPipe/ChangeLog  1.103
+  halfPipe/cmt/requirements  1.6
+  halfPipe/config/maxEvents.125K  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/ChunkScaling  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/LPAtype.LPA  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/LCItype  1.1
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/maxEvents.1M  1.1
+  halfPipe/config/stagedir.NFS  1.1
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/LPAtype  1.1
+  halfPipe/config/LPAtype.MC  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir.AFS  1.1
+  halfPipe/config/README  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/scripts/AcqSummary.py  1.1
+  halfPipe/scripts/launchL1.sh  1.16
+  halfPipe/scripts/checkNFS.sh  1.3
+  halfPipe/scripts/mergeEvt.sh  1.17
+  halfPipe/scripts/launchOnline.sh  1.11
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/AcqToAlgAndQueue.py  1.3
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.8
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.16
+  halfPipe/xml/HalfPipe.xml  1.38
+
+    *
+------------------------------------------------------------
+User: blee  Mon Apr 28 11:26:28 PDT 2008
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+update tag in requirements file
+    *
+------------------------------------------------------------
+User: blee  Mon Apr 28 09:56:05 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh 
+Log Message:
+For LONE-39 point to a compatible MySQL client library
+    *
+------------------------------------------------------------
+User: blee  Mon Apr 28 09:41:11 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh 
+Added Files:
+	AcqSummary.py 
+Log Message:
+For LONE-46 correct summary last-event times
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p2, operation: mov
+Package: halfPipe
+User: glast  Thu Apr  3 07:22:04 2008
+Files:
+  halfPipe/scripts/mergeEvt.sh  1.17
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p2, operation: mov
+Package: halfPipe
+User: glast  Thu Apr  3 07:21:45 2008
+Files:
+  halfPipe/scripts/launchOnline.sh  1.11
+
+    *
+------------------------------------------------------------
+User: blee  Thu Apr  3 07:20:04 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchOnline.sh mergeEvt.sh 
+Log Message:
+replaced CVS Name keyword
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p2, operation: mov
+Package: halfPipe
+User: glast  Thu Apr  3 07:10:52 2008
+Files:
+  halfPipe/scripts/MergeDatagrams.py  1.8
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p2, operation: mov
+Package: halfPipe
+User: glast  Thu Apr  3 07:10:21 2008
+Files:
+  halfPipe/scripts/mergeEvt.sh  1.16
+
+    *
+------------------------------------------------------------
+User: blee  Thu Apr  3 07:05:23 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py mergeEvt.sh 
+Log Message:
+For LONE-25 include APID in uniqueness check on event-index records
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p2, operation: mov
+Package: halfPipe
+User: glast  Wed Apr  2 14:37:50 2008
+Files:
+  halfPipe/scripts/mergeIndices.sh  1.14
+
+    *
+------------------------------------------------------------
+User: blee  Wed Apr  2 14:34:03 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh 
+Log Message:
+For LONE-24 use non-production MOOT when necessary
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p2, operation: add
+Package: halfPipe
+User: blee  Wed Apr  2 09:34:37 2008
+Files:
+  halfPipe/ChangeLog  1.91
+  halfPipe/cmt/requirements  1.5
+  halfPipe/config/maxEvents.125K  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/ChunkScaling  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/LPAtype.LPA  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/LCItype  1.1
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/maxEvents.1M  1.1
+  halfPipe/config/stagedir.NFS  1.1
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/LPAtype  1.1
+  halfPipe/config/LPAtype.MC  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir.AFS  1.1
+  halfPipe/config/README  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/scripts/launchL1.sh  1.16
+  halfPipe/scripts/checkNFS.sh  1.3
+  halfPipe/scripts/mergeEvt.sh  1.15
+  halfPipe/scripts/launchOnline.sh  1.10
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/AcqToAlgAndQueue.py  1.3
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.7
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.13
+  halfPipe/xml/HalfPipe.xml  1.38
+
+    *
+------------------------------------------------------------
+User: blee  Wed Apr  2 09:34:20 PDT 2008
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+For SSC-5 create tag v6r0p2
+    *
+------------------------------------------------------------
+User: blee  Wed Apr  2 09:32:51 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+For LOF-25 don't drop the last events of complete acquisitions
+    *
+------------------------------------------------------------
+User: blee  Wed Apr  2 09:32:15 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh 
+Log Message:
+For LOF-24 forward acqsummary data to MOOT
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p1, operation: add
+Package: halfPipe
+User: blee  Sun Mar 16 10:39:48 2008
+Files:
+  halfPipe/ChangeLog  1.88
+  halfPipe/cmt/requirements  1.4
+  halfPipe/config/maxEvents.125K  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/ChunkScaling  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/LPAtype.LPA  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/LCItype  1.1
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/maxEvents.1M  1.1
+  halfPipe/config/stagedir.NFS  1.1
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/LPAtype  1.1
+  halfPipe/config/LPAtype.MC  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir.AFS  1.1
+  halfPipe/config/README  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/scripts/launchL1.sh  1.16
+  halfPipe/scripts/checkNFS.sh  1.3
+  halfPipe/scripts/mergeEvt.sh  1.15
+  halfPipe/scripts/launchOnline.sh  1.10
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/AcqToAlgAndQueue.py  1.3
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.6
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.12
+  halfPipe/xml/HalfPipe.xml  1.38
+
+    *
+------------------------------------------------------------
+User: blee  Sun Mar 16 10:38:23 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	AcqToAlgAndQueue.py launchOnline.sh 
+Log Message:
+patch minor typos
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0p0, operation: add
+Package: halfPipe
+User: blee  Wed Mar 12 07:55:55 2008
+Files:
+  halfPipe/ChangeLog  1.84
+  halfPipe/cmt/requirements  1.4
+  halfPipe/config/maxEvents.125K  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/ChunkScaling  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/LPAtype.LPA  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/LCItype  1.1
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/maxEvents.1M  1.1
+  halfPipe/config/stagedir.NFS  1.1
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/LPAtype  1.1
+  halfPipe/config/LPAtype.MC  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir.AFS  1.1
+  halfPipe/config/README  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/scripts/launchL1.sh  1.16
+  halfPipe/scripts/checkNFS.sh  1.3
+  halfPipe/scripts/mergeEvt.sh  1.15
+  halfPipe/scripts/launchOnline.sh  1.9
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/AcqToAlgAndQueue.py  1.2
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.6
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.12
+  halfPipe/xml/HalfPipe.xml  1.38
+
+    *
+------------------------------------------------------------
+User: blee  Wed Mar 12 07:55:04 PDT 2008
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+update version string
+    *
+------------------------------------------------------------
+User: blee  Wed Mar 12 07:54:46 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	AcqToAlgAndQueue.py launchOnline.sh 
+Log Message:
+Only launch Online for LCI acqs
+    *
+------------------------------------------------------------
+User: blee  Wed Mar 12 07:43:00 PDT 2008
+CHS/halfPipe/config
+
+Added Files:
+	stagedir.AFS stagedir.NFS 
+Removed Files:
+	stagedir 
+Log Message:
+added staging-directory options
+    *
+------------------------------------------------------------
+User: blee  Wed Mar 12 07:39:45 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py mergeEvt.sh 
+Log Message:
+For LONE-16 merge events across downlinks
+    *
+------------------------------------------------------------
+User: blee  Tue Mar 11 15:38:15 PDT 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	checkNFS.sh 
+Log Message:
+re-enable NFS-accessibility check...
+    *
+------------------------------------------------------------
+User: blee  Thu Mar  6 10:36:03 PST 2008
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+move long jobs to glastdataq to get preemption
+    *
+------------------------------------------------------------
+User: blee  Thu Mar  6 08:13:59 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py launchL1.sh 
+Log Message:
+For LONE-21 make MergeDatagrams.py handle LCI data
+    *
+------------------------------------------------------------
+User: blee  Thu Mar  6 06:40:14 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+For LONE-17 report event gaps for FT2 livetime correction
+    *
+------------------------------------------------------------
+User: blee  Wed Mar  5 16:57:58 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	checkNFS.sh 
+Log Message:
+neuter the check for now
+    *
+------------------------------------------------------------
+User: blee  Wed Mar  5 16:57:31 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchOnline.sh mergeIndices.sh launchL1.sh 
+Added Files:
+	AcqToAlgAndQueue.py 
+Log Message:
+For LONE-20 launch online analysis with appropriate input variables
+    *
+------------------------------------------------------------
+User: blee  Wed Mar  5 09:04:53 PST 2008
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+Mods for LONE-20
+    *
+------------------------------------------------------------
+User: blee  Tue Mar  4 14:18:02 PST 2008
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+updates from orbsim/opssim
+    *
+------------------------------------------------------------
+User: blee  Tue Mar  4 14:18:02 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeEvt.sh 
+Added Files:
+	checkNFS.sh 
+Log Message:
+updates from orbsim/opssim
+    *
+------------------------------------------------------------
+User: blee  Tue Mar  4 14:18:01 PST 2008
+CHS/halfPipe/config
+
+Added Files:
+	LPAtype.LPA LPAtype.MC maxEvents.125K maxEvents.1M 
+Log Message:
+updates from orbsim/opssim
+    *
+------------------------------------------------------------
+TAG
+Tag name: v5r1p0, operation: add
+Package: halfPipe
+User: blee  Fri Feb 15 16:46:33 2008
+Files:
+  halfPipe/ChangeLog  1.70
+  halfPipe/cmt/requirements  1.3
+  halfPipe/config/stagedir  1.3
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/ChunkScaling  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/LCItype  1.1
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/LPAtype  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/config/README  1.1
+  halfPipe/scripts/launchL1.sh  1.14
+  halfPipe/scripts/mergeEvt.sh  1.13
+  halfPipe/scripts/launchOnline.sh  1.7
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.3
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.11
+  halfPipe/xml/HalfPipe.xml  1.35
+
+    *
+------------------------------------------------------------
+User: blee  Fri Feb 15 16:46:18 PST 2008
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+commit for v5r1p0 tag for Orb Sim 2
+    *
+------------------------------------------------------------
+User: blee  Fri Feb 15 16:44:21 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeEvt.sh 
+Log Message:
+For LONE-15 eliminate direct write of merged chunks to AFS
+    *
+------------------------------------------------------------
+User: blee  Fri Feb 15 16:10:05 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeEvt.sh 
+Log Message:
+For LONE-19 make chunksize-scaling parameters configurable
+    *
+------------------------------------------------------------
+User: blee  Fri Feb 15 16:10:05 PST 2008
+CHS/halfPipe/config
+
+Added Files:
+	ChunkScaling 
+Log Message:
+For LONE-19 make chunksize-scaling parameters configurable
+    *
+------------------------------------------------------------
+User: blee  Fri Feb 15 16:03:26 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh 
+Log Message:
+For LONE-14 override datatype in delivered_events.txt
+    *
+------------------------------------------------------------
+User: blee  Fri Feb 15 16:03:26 PST 2008
+CHS/halfPipe/config
+
+Added Files:
+	LCItype LPAtype 
+Log Message:
+For LONE-14 override datatype in delivered_events.txt
+    *
+------------------------------------------------------------
+User: blee  Fri Feb 15 16:01:18 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+send logging to stdout
+    *
+------------------------------------------------------------
+TAG
+Tag name: v5r0p0, operation: add
+Package: halfPipe
+User: blee  Wed Jan 23 14:19:25 2008
+Files:
+  halfPipe/ChangeLog  1.62
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/sitedep.ini  1.1
+  halfPipe/config/stagedir  1.3
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/maxEvents  1.1
+  halfPipe/config/haltOnline  1.1
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/haltCleanup  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/haltL1  1.1
+  halfPipe/config/README  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/scripts/launchL1.sh  1.13
+  halfPipe/scripts/mergeEvt.sh  1.11
+  halfPipe/scripts/launchOnline.sh  1.7
+  halfPipe/scripts/DeliverEvents.sh  1.3
+  halfPipe/scripts/acqSummary.sh  1.4
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/MergeDatagrams.py  1.2
+  halfPipe/scripts/makeEvt.sh  1.11
+  halfPipe/scripts/cleanup.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.11
+  halfPipe/xml/HalfPipe.xml  1.35
+
+    *
+------------------------------------------------------------
+User: blee  Wed Jan 23 14:18:16 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	DeliverEvents.sh acqSummary.sh cleanup.sh launchL1.sh 
+	launchOnline.sh makeEvt.sh mergeEvt.sh mergeIndices.sh 
+Log Message:
+commit fixes from the DITL
+    *
+------------------------------------------------------------
+User: blee  Wed Jan 23 14:17:01 PST 2008
+CHS/halfPipe/config
+
+Modified Files:
+	stagedir 
+Added Files:
+	README maxEvents 
+Log Message:
+added README and maxEvents files
+    *
+------------------------------------------------------------
+User: blee  Wed Jan 23 13:57:42 PST 2008
+CHS/halfPipe/scripts
+
+Modified Files:
+	MergeDatagrams.py 
+Log Message:
+updated datagram-based index merging
+    *
+------------------------------------------------------------
+User: blee  Wed Jan 23 13:55:35 PST 2008
+CHS/halfPipe/scripts
+
+Added Files:
+	MergeDatagrams.py 
+Log Message:
+initial version of datagram-based index merging
+    *
+------------------------------------------------------------
+User: blee  Wed Jan 23 08:38:18 PST 2008
+CHS/halfPipe/config
+
+Modified Files:
+	stagedir 
+Added Files:
+	haltCleanup haltL1 haltOnline sitedep.ini 
+Log Message:
+updates from DITL experience
+    *
+------------------------------------------------------------
+User: blee  Wed Jan 23 08:34:33 PST 2008
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+move mergeIndices to the short queue
+    *
+------------------------------------------------------------
+TAG
+Tag name: v6r0, operation: add
+Package: halfPipe
+User: philiph  Wed Dec 12 11:22:54 2007
+Files:
+  halfPipe/ChangeLog  1.56
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.12
+  halfPipe/scripts/mergeEvt.sh  1.10
+  halfPipe/scripts/launchOnline.sh  1.6
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.3
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.10
+  halfPipe/scripts/cleanup.sh  1.4
+  halfPipe/scripts/mergeIndices.sh  1.10
+  halfPipe/xml/HalfPipe.xml  1.34
+
+    *
+------------------------------------------------------------
+User: blee  Sat Nov 17 14:43:42 PST 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+moved mergeIndices to long queue and launchL1 to medium
+    *
+------------------------------------------------------------
+User: blee  Tue Oct  9 16:21:18 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+bump revision to clear stream list in PROD
+    *
+------------------------------------------------------------
+TAG
+Tag name: v4r4p1, operation: add
+Package: halfPipe
+User: blee  Tue Oct  9 07:44:09 2007
+Files:
+  halfPipe/ChangeLog  1.51
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.12
+  halfPipe/scripts/mergeEvt.sh  1.10
+  halfPipe/scripts/launchOnline.sh  1.6
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.3
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.10
+  halfPipe/scripts/cleanup.sh  1.4
+  halfPipe/scripts/mergeIndices.sh  1.10
+  halfPipe/xml/HalfPipe.xml  1.32
+
+    *
+------------------------------------------------------------
+User: blee  Tue Oct  9 07:43:50 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+hopefully final patch before OktoberFest
+    *
+------------------------------------------------------------
+User: blee  Tue Oct  9 07:43:50 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	cleanup.sh launchL1.sh 
+Log Message:
+hopefully final patch before OktoberFest
+    *
+------------------------------------------------------------
+TAG
+Tag name: v4r4p0, operation: add
+Package: halfPipe
+User: blee  Mon Oct  8 11:26:53 2007
+Files:
+  halfPipe/ChangeLog  1.48
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/stagedir  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.11
+  halfPipe/scripts/mergeEvt.sh  1.10
+  halfPipe/scripts/launchOnline.sh  1.6
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.3
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.10
+  halfPipe/scripts/cleanup.sh  1.3
+  halfPipe/scripts/mergeIndices.sh  1.10
+  halfPipe/xml/HalfPipe.xml  1.31
+
+    *
+------------------------------------------------------------
+User: blee  Mon Oct  8 11:26:30 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	cleanup.sh launchL1.sh 
+Log Message:
+corrected cleanup script for orphan events, stage L1 inputs to AFS
+    *
+------------------------------------------------------------
+User: blee  Mon Oct  8 11:26:30 PDT 2007
+CHS/halfPipe/config
+
+Added Files:
+	stagedir 
+Log Message:
+corrected cleanup script for orphan events, stage L1 inputs to AFS
+    *
+------------------------------------------------------------
+TAG
+Tag name: v4r3p0, operation: add
+Package: halfPipe
+User: blee  Fri Oct  5 07:32:53 2007
+Files:
+  halfPipe/ChangeLog  1.45
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/overrideLATCmerge.sh  1.1
+  halfPipe/config/overrideLATCdecode.sh  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.10
+  halfPipe/scripts/mergeEvt.sh  1.10
+  halfPipe/scripts/launchOnline.sh  1.6
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.3
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.10
+  halfPipe/scripts/cleanup.sh  1.2
+  halfPipe/scripts/mergeIndices.sh  1.10
+  halfPipe/xml/HalfPipe.xml  1.31
+
+    *
+------------------------------------------------------------
+User: blee  Fri Oct  5 07:32:19 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	makeEvt.sh mergeEvt.sh 
+Log Message:
+added decode-time hwkey-override option
+    *
+------------------------------------------------------------
+User: blee  Fri Oct  5 07:32:19 PDT 2007
+CHS/halfPipe/config
+
+Added Files:
+	overrideLATCdecode.sh overrideLATCmerge.sh 
+Removed Files:
+	overrideLATC.sh 
+Log Message:
+added decode-time hwkey-override option
+    *
+------------------------------------------------------------
+TAG
+Tag name: v4r2p0, operation: add
+Package: halfPipe
+User: blee  Mon Oct  1 11:55:23 2007
+Files:
+  halfPipe/ChangeLog  1.42
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/overrideLATC.sh  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.10
+  halfPipe/scripts/mergeEvt.sh  1.9
+  halfPipe/scripts/launchOnline.sh  1.6
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.3
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.9
+  halfPipe/scripts/cleanup.sh  1.2
+  halfPipe/scripts/mergeIndices.sh  1.10
+  halfPipe/xml/HalfPipe.xml  1.31
+
+    *
+------------------------------------------------------------
+User: blee  Mon Oct  1 11:54:42 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	acqSummary.sh cleanup.sh launchL1.sh launchOnline.sh 
+	makeEvt.sh mergeEvt.sh mergeIndices.sh 
+Log Message:
+added LATC override at write-merge step
+    *
+------------------------------------------------------------
+User: blee  Mon Oct  1 11:54:42 PDT 2007
+CHS/halfPipe/config
+
+Added Files:
+	overrideLATC.sh 
+Log Message:
+added LATC override at write-merge step
+    *
+------------------------------------------------------------
+TAG
+Tag name: v4r1p0, operation: add
+Package: halfPipe
+User: blee  Mon Oct  1 07:20:10 2007
+Files:
+  halfPipe/ChangeLog  1.39
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/flavor_nightly_prod  1.1
+  halfPipe/config/flavor_nightly_devel  1.1
+  halfPipe/config/flavor_devel  1.1
+  halfPipe/config/flavor_test  1.1
+  halfPipe/config/flavor_prod  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.9
+  halfPipe/scripts/mergeEvt.sh  1.8
+  halfPipe/scripts/launchOnline.sh  1.5
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.2
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.8
+  halfPipe/scripts/cleanup.sh  1.1
+  halfPipe/scripts/mergeIndices.sh  1.9
+  halfPipe/xml/HalfPipe.xml  1.31
+
+    *
+------------------------------------------------------------
+User: blee  Mon Oct  1 07:18:02 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	acqSummary.sh launchL1.sh launchOnline.sh makeEvt.sh 
+	mergeEvt.sh mergeIndices.sh 
+Log Message:
+add flavor_ files
+    *
+------------------------------------------------------------
+User: blee  Mon Oct  1 07:18:01 PDT 2007
+CHS/halfPipe/config
+
+Added Files:
+	flavor_devel flavor_nightly_devel flavor_nightly_prod 
+	flavor_prod flavor_test 
+Log Message:
+add flavor_ files
+    *
+------------------------------------------------------------
+TAG
+Tag name: v4r0p1, operation: add
+Package: halfPipe
+User: blee  Mon Oct  1 07:00:00 2007
+Files:
+  halfPipe/ChangeLog  1.37
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.8
+  halfPipe/scripts/mergeEvt.sh  1.7
+  halfPipe/scripts/launchOnline.sh  1.4
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.1
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.7
+  halfPipe/scripts/cleanup.sh  1.1
+  halfPipe/scripts/mergeIndices.sh  1.8
+  halfPipe/xml/HalfPipe.xml  1.31
+
+    *
+------------------------------------------------------------
+User: blee  Mon Oct  1 06:58:41 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh launchOnline.sh 
+Log Message:
+add bailouts on L1 launches
+    *
+------------------------------------------------------------
+TAG
+Tag name: v4r0p0, operation: add
+Package: halfPipe
+User: blee  Tue Sep 25 22:29:44 2007
+Files:
+  halfPipe/ChangeLog  1.35
+  halfPipe/cmt/requirements  1.2
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.7
+  halfPipe/scripts/mergeEvt.sh  1.7
+  halfPipe/scripts/launchOnline.sh  1.3
+  halfPipe/scripts/DeliverEvents.sh  1.2
+  halfPipe/scripts/acqSummary.sh  1.1
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/makeEvt.sh  1.7
+  halfPipe/scripts/cleanup.sh  1.1
+  halfPipe/scripts/mergeIndices.sh  1.8
+  halfPipe/xml/HalfPipe.xml  1.31
+
+    *
+------------------------------------------------------------
+User: blee  Tue Sep 25 22:28:34 PDT 2007
+CHS/halfPipe/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+working checkpoint with acq tracking and cleanup
+    *
+------------------------------------------------------------
+User: blee  Tue Sep 25 22:27:43 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	DeliverEvents.sh launchL1.sh launchOnline.sh 
+Added Files:
+	acqSummary.sh cleanup.sh 
+Removed Files:
+	DownlinkInfo.py downlinkInfo.sh 
+Log Message:
+working checkpoint with acq tracking and cleanup
+    *
+------------------------------------------------------------
+User: blee  Tue Sep 25 14:08:37 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+added cleanup task
+
+    *
+------------------------------------------------------------
+User: blee  Mon Sep 24 08:52:12 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+re-sequence chunktokens / acqsummary to be inside launchL1.
+
+    *
+------------------------------------------------------------
+User: blee  Mon Sep 24 07:32:51 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+moved DownlinkInfo.py to AcqSummary.py application.
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: v5r4p1, operation: add
+Package: halfPipe
+User: blee  Sun Sep 16 10:04:31 2007
+Files:
+  halfPipe/ChangeLog  1.30
+  halfPipe/cmt/requirements  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.6
+  halfPipe/scripts/mergeEvt.sh  1.7
+  halfPipe/scripts/launchOnline.sh  1.2
+  halfPipe/scripts/DownlinkInfo.py  1.1
+  halfPipe/scripts/DeliverEvents.sh  1.1
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/downlinkInfo.sh  1.1
+  halfPipe/scripts/makeEvt.sh  1.7
+  halfPipe/scripts/mergeIndices.sh  1.8
+  halfPipe/xml/HalfPipe.xml  1.28
+
+    *
+------------------------------------------------------------
+User: blee  Fri Sep  7 08:23:54 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+rearrange task dependencies
+    *
+------------------------------------------------------------
+User: blee  Mon Aug 27 14:07:22 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+Workaround for PII-251
+    *
+------------------------------------------------------------
+TAG
+Tag name: v3r0p0, operation: add
+Package: halfPipe
+User: blee  Mon Aug 27 07:51:17 2007
+Files:
+  halfPipe/ChangeLog  1.26
+  halfPipe/cmt/requirements  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/launchL1.sh  1.6
+  halfPipe/scripts/mergeEvt.sh  1.7
+  halfPipe/scripts/launchOnline.sh  1.2
+  halfPipe/scripts/DownlinkInfo.py  1.1
+  halfPipe/scripts/DeliverEvents.sh  1.1
+  halfPipe/scripts/mergeidx.py  1.4
+  halfPipe/scripts/downlinkInfo.sh  1.1
+  halfPipe/scripts/makeEvt.sh  1.7
+  halfPipe/scripts/mergeIndices.sh  1.8
+  halfPipe/xml/HalfPipe.xml  1.26
+
+    *
+------------------------------------------------------------
+User: blee  Mon Aug 27 07:50:34 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh launchOnline.sh makeEvt.sh mergeIndices.sh 
+Added Files:
+	DeliverEvents.sh 
+Log Message:
+add online-analysis dispatch and retired-run creation
+    *
+------------------------------------------------------------
+User: blee  Fri Aug 24 14:29:47 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh makeEvt.sh mergeEvt.sh mergeIndices.sh mergeidx.py 
+Added Files:
+	DownlinkInfo.py downlinkInfo.sh launchOnline.sh 
+Removed Files:
+	extractM7.sh 
+Log Message:
+update to include Online-analysis dispatch and downlink-info posting
+    *
+------------------------------------------------------------
+User: blee  Fri Aug 24 14:27:45 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+added downlinkInfo wrapper
+    *
+------------------------------------------------------------
+User: blee  Thu Aug 23 21:12:24 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+add required name attribute
+
+    *
+------------------------------------------------------------
+User: blee  Thu Aug 23 21:09:19 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+added downlinkInfo subprocess
+    *
+------------------------------------------------------------
+User: blee  Mon Aug 20 15:58:37 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+HalfPipe.xml
+    *
+------------------------------------------------------------
+User: blee  Mon Jul 30 17:10:03 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+Switch to medium queue and no allocation-group specification
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  7 09:30:23 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+replaced revision keyword
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  7 09:26:00 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+moved m7-extract back to launchL1 and moved to long queue
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  7 09:26:00 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh 
+Log Message:
+moved m7-extract back to launchL1 and moved to long queue
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  7 09:06:24 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+separated m7-extraction into its own medium-queue job
+    *
+------------------------------------------------------------
+User: blee  Sat Jul  7 09:06:24 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh 
+Added Files:
+	extractM7.sh 
+Log Message:
+separated m7-extraction into its own medium-queue job
+    *
+------------------------------------------------------------
+TAG
+Tag name: v2r2p0, operation: add
+Package: halfPipe
+User: blee  Fri Jul  6 11:33:32 2007
+Files:
+  halfPipe/ChangeLog  1.13
+  halfPipe/cmt/requirements  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/mergeidx.py  1.3
+  halfPipe/scripts/makeEvt.sh  1.5
+  halfPipe/scripts/launchL1.sh  1.2
+  halfPipe/scripts/mergeEvt.sh  1.6
+  halfPipe/scripts/mergeIndices.sh  1.6
+  halfPipe/xml/HalfPipe.xml  1.18
+
+    *
+------------------------------------------------------------
+User: blee  Fri Jul  6 11:33:10 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	launchL1.sh 
+Log Message:
+added magic7 delivery to launchL1.sh
+    *
+------------------------------------------------------------
+TAG
+Tag name: v2r1p0, operation: add
+Package: halfPipe
+User: blee  Fri Jul  6 09:07:09 2007
+Files:
+  halfPipe/ChangeLog  1.11
+  halfPipe/cmt/requirements  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/mergeidx.py  1.3
+  halfPipe/scripts/makeEvt.sh  1.5
+  halfPipe/scripts/launchL1.sh  1.1
+  halfPipe/scripts/mergeEvt.sh  1.6
+  halfPipe/scripts/mergeIndices.sh  1.6
+  halfPipe/xml/HalfPipe.xml  1.18
+
+    *
+------------------------------------------------------------
+User: blee  Fri Jul  6 09:06:15 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	makeEvt.sh mergeEvt.sh mergeidx.py 
+Log Message:
+checkpoint prior to ETE2 using CHS v4r4p1
+    *
+------------------------------------------------------------
+User: blee  Wed Apr  4 21:36:28 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+host restriction failed
+    *
+------------------------------------------------------------
+User: blee  Wed Apr  4 21:26:01 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+restrict to faster batch machines
+    *
+------------------------------------------------------------
+User: blee  Wed Apr  4 20:42:15 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+use glastdata batch group and glastdataq batch queue
+    *
+------------------------------------------------------------
+TAG
+Tag name: v2r0p0, operation: add
+Package: halfPipe
+User: blee  Mon Apr  2 05:55:23 2007
+Files:
+  halfPipe/ChangeLog  1.7
+  halfPipe/cmt/requirements  1.1
+  halfPipe/config/configDispatch  1.3
+  halfPipe/scripts/mergeidx.py  1.2
+  halfPipe/scripts/makeEvt.sh  1.4
+  halfPipe/scripts/launchL1.sh  1.1
+  halfPipe/scripts/mergeEvt.sh  1.5
+  halfPipe/scripts/mergeIndices.sh  1.6
+  halfPipe/xml/HalfPipe.xml  1.15
+
+    *
+------------------------------------------------------------
+User: blee  Sat Mar 31 22:10:00 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+launch doMerge from mergeIndices
+    *
+------------------------------------------------------------
+User: blee  Sat Mar 31 22:10:00 PDT 2007
+CHS/halfPipe/scripts
+
+Modified Files:
+	mergeIndices.sh 
+Log Message:
+launch doMerge from mergeIndices
+    *
+------------------------------------------------------------
+User: blee  Sat Mar 31 13:14:41 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+change mergeIndices to medium queue
+    *
+------------------------------------------------------------
+User: blee  Sat Mar 31 10:01:18 PDT 2007
+CHS/halfPipe/xml
+
+Modified Files:
+	HalfPipe.xml 
+Log Message:
+make batch call to pipeline client to launch L1
+    *
+------------------------------------------------------------
+User: blee  Sat Mar 31 10:01:18 PDT 2007
+CHS/halfPipe/scripts
+
+Added Files:
+	launchL1.sh 
+Log Message:
+make batch call to pipeline client to launch L1
+    *
+------------------------------------------------------------
+TAG
+Tag name: v1r2p0, operation: add
+Package: halfPipe
+User: blee  Fri Mar 23 15:39:57 2007
+Files:
+  halfPipe/cmt/requirements  1.1
+
+    *
+------------------------------------------------------------
+User: blee  Fri Mar 23 15:39:41 PDT 2007
+CHS/halfPipe/cmt
+
+Added Files:
+	requirements 
+Log Message:
+added (empty) requirements file
+    *
