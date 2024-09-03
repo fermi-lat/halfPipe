@@ -1,4 +1,8 @@
-#! /usr/bin/env python2.5
+#!/usr/bin/env python
+
+# /afs/slac/g/glast/isoc/flightOps/rhel5_gcc41/${fosFlavor}/bin/shisoc --add-env=flightops python
+# /afs/slac/g/glast/isoc/flightOps/rhel6_gcc44/${fosFlavor}/bin/shisoc --add-env=flightops python
+
 #
 #                               Copyright 2007
 #                                     by

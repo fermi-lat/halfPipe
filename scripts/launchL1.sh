@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/bin/bash -vx
 
 # Set up the environment for FlightOps code.
-flavor=`cat ${taskBase}/config/flavor`
+#flavor=`cat ${taskBase}/config/flavor`
+flavor=${fosFlavor}
 platform=`/afs/slac/g/glast/isoc/flightOps/isoc-platform`
-echo "using ISOC platform $platform flavor $flavor with halfPipe v6r2p0"
+echo "using ISOC platform $platform flavor $flavor with halfPipe v7r0p0"
 eval `/afs/slac/g/glast/isoc/flightOps/${platform}/${flavor}/bin/isoc isoc_env --add-env=flightops`
 
 if [ -s ${taskBase}/config/sitedep.ini ] ; then
@@ -15,8 +16,8 @@ if [ -s ${taskBase}/config/sitedep.ini ] ; then
 fi
 
 # use scratch as tmp if available
-if [ -d /scratch ] ; then
-    export TMPDIR=/scratch
+if [ -d ${LSCRATCH} ] ; then
+    export TMPDIR=${LSCRATCH}
 fi
 
 # drop into the output directory
@@ -35,6 +36,8 @@ EOF
 #rdfile=`ls -1 $HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID/RetDef-*.xml | head -1` # fails if too many files
 rdfile=`find $HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID -name 'RetDef-*.xml' -print | head -1`
 l0arch=`xsltproc l0arch.xsl $rdfile | tail -1`
+echo $PWD
+ls -l l0arch.xsl
 rm l0arch.xsl
 echo "Level-0 archive at $l0arch"
 
@@ -43,7 +46,7 @@ tevt0=`head -n 1 -q */evt-*.idx | sort | head -n 1 | awk '{print $6}' | python -
 tevt1=`tail -n 1 -q */evt-*.idx | sort | tail -n 1 | awk '{print $6}' | python -c 'import datetime, sys; print datetime.datetime.utcfromtimestamp( float( sys.stdin.read() ) + 6000.0 )'`
 scid=`head -n 1 -q */evt-*.idx | sort | head -n 1 | awk '{print $7}'`
 echo "retrieving magic-7 data from scid $scid for $tevt0 --> $tevt1"
-time python ${taskBase}/scripts/DiagRet.py --arch $l0arch --scid $scid -b "$tevt0" -e "$tevt1" --lsm | grep -E 'ATT|ORB' > magic7_${HALFPIPE_DOWNLINKID}.txt
+time ${taskBase}/scripts/DiagRet.py --arch $l0arch --scid $scid -b "$tevt0" -e "$tevt1" --lsm | grep -E 'ATT|ORB' > magic7_${HALFPIPE_DOWNLINKID}.txt
 rc=$?
 if [ $rc -ne 0 ] ; then
     echo "Error retrieving magic-7 data"
@@ -104,11 +107,23 @@ fi
 
 # make sure enough Java-stuff is on the path
 export PATH=/usr/local/bin:bin:/usr/bin:$PATH
-
+echo "Submitting task: ${HALFPIPE_L1TASK}"
+submit_file=$HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID/createStream_$HALFPIPE_L1TASK.sh
+echo 'echo Noting to submit!' > $submit_file
+[[ $HALFPIPE_STARTL1 -eq 0 ]] ||
+    echo 'echo Submit!' > $submit_file
+chmod a+x $submit_file
+#echo /sdf/group/fermi/sw/pipeline-II/dev/pipeline -m ${HALFPIPE_PLFLAVOR} createStream \
+    #	 -S $HALFPIPE_DOWNLINKID \
+    #	 -D "DOWNLINK_ID=${HALFPIPE_DOWNLINKID}" \
+    #	 -D "DOWNLINK_RAWDIR=${stagedir}/${HALFPIPE_DOWNLINKID}" \
+    #	 $HALFPIPE_L1TASK > $submit_file
+# We can try this with the new bind mounts (see start_rhel6.sh)
 # dispatch the L1 pipeline for this downlink.
 [[ $HALFPIPE_STARTL1 -eq 0 ]] || \
-    exec /afs/slac.stanford.edu/g/glast/ground/bin/pipeline -m ${HALFPIPE_PLFLAVOR} createStream \
-    -S $HALFPIPE_DOWNLINKID \
-    -D "DOWNLINK_ID=${HALFPIPE_DOWNLINKID}" \
-    -D "DOWNLINK_RAWDIR=${stagedir}/${HALFPIPE_DOWNLINKID}" \
-    $HALFPIPE_L1TASK
+    exec /sdf/group/fermi/sw/pipeline-II/dev/pipeline -m ${mode} createStream \
+	 TonyHelloS3DF
+         #-S $HALFPIPE_DOWNLINKID \
+         #-D "DOWNLINK_ID=${HALFPIPE_DOWNLINKID}" \
+         #-D "DOWNLINK_RAWDIR=${stagedir}/${HALFPIPE_DOWNLINKID}" \
+         #$HALFPIPE_L1TASK

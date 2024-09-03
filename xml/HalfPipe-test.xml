@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline
+  xmlns="http://glast-ground.slac.stanford.edu/pipeline"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://glast-ground.slac.stanford.edu/pipeline https://glast-ground.slac.stanford.edu/Pipeline-II/schemas/2.3/pipeline.xsd">
+
+<!--
+    Changes:
+    2024-05-22  NO: MOVING TO S3DF
+    2014-01-09 SAT: Allow RHEL6 as well but still use glastdataq.
+    2013-10-13 MEM: Asking to run on rhel5 machines only 
+    2012-09-12 MEM: Moving default log location to u41
+    2011-10-06 SAT: Add scratch space resource usage requirements to batch options
+    2008-03-06 RBL: move long jobs to glastdataq to get preemption
+    2007-10-09 RBL: bump revision to clear stream list in Prod
+    2007-10-09 RBL: bump revision to clear stream list in Prod
+-->
+  <task name="HalfPipe-s3df" type="Data" version="1.70">
+    <variables>
+      <var name="logRoot">/sdf/group/fermi/ground/PipelineOutput/halfPipe/logs/${pipelineFlavor}</var>
+      <var name="JOBSITE">S3DFDATA</var>
+      <var name="WALL_TIME"> 0:30:00 </var>             <!-- 15 minutes by default. Format: H:M:S -->
+      <var name="MAX_CPU">1</var>
+      <var name="GPL_BATCHRESOURCES">milano</var>
+      <var name="GPL_BATCHACCOUNT">fermi:L1</var>
+      <var name="GPL_XTRABATCHRESOURCES"></var>         <!-- intentionally left EMPTY - for rollback -->
+      <var name="GPL_XTRABATCHOPTIONS"></var>
+      <var name="GPL_BATCHOPTIONS">--time ${WALL_TIME} --partition ${GPL_BATCHRESOURCES} --account ${GPL_BATCHACCOUNT} ${GPL_XTRABATCHOPTIONS} ${GPL_XTRABATCHRESOURCES}</var>
+      
+      <!-- container and wrapper -->
+      <var name="container_image">/sdf/group/fermi/sw/containers/fermi-rhel6.sif</var>
+      <var name="container_env"></var>
+      <var name="container_volumes">--bind /sdf/group/fermi/n:/nfs/farm/g/glast --bind /sdf/group/fermi/a:/afs/slac.stanford.edu/g/glast --bind /sdf/group/fermi/a:/afs/slac/g/glast --bind /sdf:/sdf --bind /lscratch:/lscratch --bind /sdf/group/fermi/sw/package:/afs/slac/package --bind /sdf/group/fermi/sw/package:/afs/slac.stanford.edu/package --bind /sdf/group/fermi/sw/containers/rhel6/opt/TWWfsw:/opt/TWWfsw --bind /sdf/group/fermi/sw/containers/rhel6/usr/local:/usr/local --bind /sdf/group/fermi/sw/java/jdk/jdk8:/usr/lib/jvm/jre-1.8.0-openjdk</var>
+      <var name="container_wrap">singularity exec ${container_env} ${container_volumes} ${container_image}</var>
+      <var name="isocenv_wrap">sh ${taskBase}/scripts/isocenv_wrapper.sh</var>
+    </variables>
+    <prerequisites>
+      <prerequisite name="taskBase" type="string" />
+      <prerequisite name="outputBase" type="string" />
+      <prerequisite name="downlinkID" type="integer" />
+      <prerequisite name="numChunks" type="integer" />
+      <prerequisite name="level1Name" type="string" />
+      <prerequisite name="startL1" type="integer" />
+      <prerequisite name="maxEvents" type="integer" />
+      <prerequisite name="fosFlavor" type="string" />
+      <prerequisite name="fmxRoot" type="string" />
+      <prerequisite name="pipelineFlavor" type="string" />
+      <prerequisite name="startOnline" type="integer" />
+      <prerequisite name="onlineName" type="string" />
+    </prerequisites>
+    <process name="launchChunks" site="${JOBSITE}">
+      <script><![CDATA[
+
+            for i in range(0, numChunks):
+               pipeline.createSubstream("doChunk", i+1)
+
+         ]]></script>
+      <createsSubtasks>
+        <subtask>doChunk</subtask>
+      </createsSubtasks>
+    </process>
+    <process name="mergeIndices" site="${JOBSITE}">
+      <variables>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_NUMCHUNKS">${numChunks}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	<var name="HALFPIPE_MERGEIDX">${taskBase}/scripts/mergeidx.py</var>
+	<var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	<var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+      </variables>
+      <job
+	  batchOptions=" ${GPL_BATCHOPTIONS} "
+	  executable="${container_wrap} ${isocenv_wrap} ${taskBase}/scripts/mergeIndices.sh" />
+      <depends>
+        <after process="doChunk.makeEvt" status="SUCCESS" />
+      </depends>
+    </process>
+    
+    <process name="launchMerge" site="${JOBSITE}">
+      <variables>
+	<var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+	<var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+      </variables>
+      <script><![CDATA[
+import os
+import glob
+myFiles=glob.glob('%s/%s/r0*_doMerge.txt' %(HALFPIPE_OUTPUTBASE,HALFPIPE_DOWNLINKID))
+print (myFiles)
+for i,iFile in enumerate(myFiles):
+    print (' processing file %s ' % iFile)
+    my_file=file(iFile,'r')
+    lines=my_file.readlines()
+    options={}
+    for l in lines:
+        n,v=l.split('=')
+        options[n.strip()]=v.strip()
+        pass
+    print (options)
+    HALFPIPE_RUNSTART_DEX=int(options['HALFPIPE_RUNSTART_DEX'])
+    HALFPIPE_RUNSTART=options['HALFPIPE_RUNSTART']
+    os.environ['HALFPIPE_RUNSTART']=HALFPIPE_RUNSTART
+    my_file.close()
+    pipeline.createSubstream("doMerge", HALFPIPE_RUNSTART_DEX)
+    ]]></script>
+      <depends>
+        <after process="mergeIndices" status="SUCCESS" />
+      </depends>
+      <createsSubtasks>
+	<subtask>doMerge</subtask>
+      </createsSubtasks>
+    </process>
+    <process name="launchOnline" site="${JOBSITE}">
+      <variables>
+	<var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	<var name="HALFPIPE_PLFLAVOR">${pipelineFlavor}</var>
+	<var name="HALFPIPE_ONLINETASK">${onlineName}</var>
+	<var name="HALFPIPE_STARTONLINE">${startOnline}</var>
+	<var name="preExec">${taskBase}/scripts/lockFile.sh ${outputBase}/lock/launchOnline</var> <!-- Not sure the preExec will work -->
+      </variables>
+      <job
+	  prolog="${taskBase}/scripts/lockFile.sh ${outputBase}/lock/launchOnline"
+	  batchOptions=" ${GPL_BATCHOPTIONS} "
+	  executable="${container_wrap} ${isocenv_wrap} ${taskBase}/scripts/launchOnline.sh" /> <!-- NOt sure the preExec will work -->
+      <depends>
+	<after process="doMerge.mergeEvt" status="SUCCESS" />
+      </depends>
+    </process>
+    <process name="launchL1" site="${JOBSITE}">
+      <variables>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+        <var name="HALFPIPE_L1TASK">${level1Name}</var>
+	<var name="HALFPIPE_STARTL1">${startL1}</var>
+	<var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	<var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+	<var name="HALFPIPE_PLFLAVOR">${pipelineFlavor}</var>
+      </variables>
+      <job
+	  batchOptions=" ${GPL_BATCHOPTIONS} "
+	  executable="${container_wrap} ${isocenv_wrap} ${taskBase}/scripts/launchL1.sh" />
+      <depends>
+	<after process="doMerge.mergeEvt" status="SUCCESS" />
+      </depends>
+    </process>
+
+    <!--process name="submitL1" site="${JOBSITE}">
+      <variables>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	<var name="HALFPIPE_L1TASK">${level1Name}</var>
+      </variables>
+      <job
+          batchOptions=" ${GPL_BATCHOPTIONS} "
+          executable="${HALFPIPE_OUTPUTBASE}/${HALFPIPE_DOWNLINKID}/createStream_${HALFPIPE_L1TASK}.sh" />
+      <depends>
+        <after process="launchL1" status="SUCCESS" />
+      </depends>
+    </process-->
+    
+    <process name="cleanup" site="${JOBSITE}">
+      <variables>
+        <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+        <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	<var name="preExec">${taskBase}/scripts/lockFile.sh ${outputBase}/lock/cleanup</var> <!-- Not sure the preExec will work -->
+      </variables>
+      <job
+	  prolog="${taskBase}/scripts/lockFile.sh ${outputBase}/lock/cleanup"
+	  batchOptions=" ${GPL_BATCHOPTIONS} "
+	  executable="${container_wrap} ${isocenv_wrap} ${taskBase}/scripts/cleanup.sh" />
+      <depends>
+	<!--after process="submitL1" status="SUCCESS" /-->
+	<after process="launchL1" status="SUCCESS" />
+	<after process="launchOnline" status="SUCCESS" />
+      </depends>
+    </process>
+    <task name="doChunk" type="Data" version="1.2">
+      <process name="makeEvt" autoRetryMaxAttempts="1" site="${JOBSITE}">
+        <variables>
+	  <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+	  <var name="HALFPIPE_NUMCHUNKS">${numChunks}</var>
+	  <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	  <var name="HALFPIPE_CHUNKID">${format(pipeline.stream, "%05d")}</var>
+	  <var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	  <var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+	  <var name="preExec">${taskBase}/scripts/checkNFS.sh</var> <!-- Not sure the preExec will work -->
+        </variables>
+        <job
+	    batchOptions=" ${GPL_BATCHOPTIONS} "
+	    executable="${container_wrap} ${isocenv_wrap} ${taskBase}/scripts/makeEvt.sh" />
+      </process>
+    </task>
+    <task name="doMerge" type="Data" version="1.2">
+      <process name="mergeEvt" autoRetryMaxAttempts="1" site="${JOBSITE}">
+        <variables>
+	  <var name="HALFPIPE_DOWNLINKID">${format(downlinkID, "%09d")}</var>
+	  <var name="HALFPIPE_NUMCHUNKS">${numChunks}</var>
+	  <var name="HALFPIPE_OUTPUTBASE">${outputBase}</var>
+	  <var name="HALFPIPE_MAXEVENTS">${maxEvents}</var>
+	  <var name="HALFPIPE_FOSFLAVOR">${fosFlavor}</var>
+	  <var name="HALFPIPE_FMXROOT">${fmxRoot}</var>
+	  <!--var name="HALFPIPE_RUNSTART">${runStart}</var -->
+	  <!--var name="preExec">${taskBase}/scripts/lockFile.sh ${outputBase}/lock/${HALFPIPE_RUNSTART}</var -->
+        </variables>
+        <job
+	    prolog="${taskBase}/scripts/lockFile.sh ${outputBase}/lock/${HALFPIPE_RUNSTART}"
+	    batchOptions=" ${GPL_BATCHOPTIONS} "
+	    executable="${container_wrap} ${isocenv_wrap} ${taskBase}/scripts/mergeEvt.sh" />
+      </process>
+    </task>
+  </task>
+</pipeline>

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -vx
 #
 # script to deliver events for and launch Online analysis
 #
@@ -8,30 +8,36 @@ lock_file="${HALFPIPE_OUTPUTBASE}/lock/launchOnline"
 trap 'rm -f $lock_file' EXIT
 
 # Set up the environment for FlightOps code.
-flavor=`cat ${taskBase}/config/flavor`
+#flavor=`cat ${taskBase}/config/flavor`
+flavor=${fosFlavor}
 platform=`/afs/slac/g/glast/isoc/flightOps/isoc-platform`
-echo "using ISOC platform $platform flavor $flavor with halfPipe v6r2p0"
+echo "using ISOC platform $platform flavor $flavor with halfPipe v7r0p0"
 eval `/afs/slac/g/glast/isoc/flightOps/${platform}/${flavor}/bin/isoc isoc_env --add-env=flightops`
 
 # use scratch as tmp if available
-if [ -d /scratch ] ; then
-    export TMPDIR=/scratch
+if [ -d ${LSCRATCH} ]; then
+    export TMPDIR=${LSCRATCH}
 fi
 
 # set up the source and destination directories
 HP_IDXSRC="${HALFPIPE_OUTPUTBASE}/${HALFPIPE_DOWNLINKID}"
+# MK created stage manually ###################################################################
 HP_IDXDST="${HALFPIPE_OUTPUTBASE}/stage"
+mkdir -pv ${HP_IDXDST}
+# THERE IS NO evt DIR, SO NO EVT FILES CAN BE FOUND THERE
 HP_EVTDST="${HALFPIPE_OUTPUTBASE}/evt"
 HP_FORCEDIR="${HALFPIPE_OUTPUTBASE}/force"
 
 # link the index files to the staging directory
-find $HP_IDXSRC -name '????????-????????-????-?????.idx' -exec ln -sf {} $HP_IDXDST \;
+find $HP_IDXSRC -name '????????-????????-????-?????.idx' -exec ln -svf {} $HP_IDXDST \;
 
 # get the SCID of the decoded data
 idxf=`ls -1 $HP_IDXSRC/????????-????????-????-?????.idx | head -1`
 scid=`grep ^DGM $idxf | head -1 | awk '{print $4}'`
+echo "idxf=${idxf}"
+echo "scid=${scid}"
 
-# get the list of .evt files currently in the output directory
+# get the list of .evt files currently in the output directory  ################################ FAILS
 find $HP_EVTDST -name '*.evt' -print | sort > evt0.txt
 
 # short-circuit the Online dispatch
@@ -76,8 +82,14 @@ for f in `cat launch.txt`; do
     mkey=`cat aq_${rstx}.txt | awk '{print $2}'`
     alg=`cat aq_${rstx}.txt | awk '{print $3}'`
     queue=`cat aq_${rstx}.txt | awk '{print $4}'`
-    [[ $HALFPIPE_STARTONLINE -eq 0 ]] || \
-	/afs/slac.stanford.edu/g/glast/ground/bin/pipeline -m ${HALFPIPE_PLFLAVOR} createStream \
-	-D "EVENT_FILE=$f" -D "ANALYSIS_QUEUE=$queue" -D "ANALYSIS_ALGORITHM=$alg" -D "RUN_ID=$runid" \
-	-D "FLAVOR=`echo $flavor | awk -F_ '{print $2}'`" -D "FARM_ROOT=$farm_root" $HALFPIPE_ONLINETASK
+    echo "Submitting task ${HALFPIPE_ONLINETASK}:"
+    submit_file=$HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID/createStream_$HALFPIPE_ONLINETASK_$rstx.sh
+    echo /sdf/group/fermi/sw/pipeline-II/dev/pipeline -m ${HALFPIPE_PLFLAVOR} createStream \
+	 -D "EVENT_FILE=$f" -D "ANALYSIS_QUEUE=$queue" -D "ANALYSIS_ALGORITHM=$alg" -D "RUN_ID=$runid" \
+	 -D "FLAVOR=`echo $flavor | awk -F_ '{print $2}'`" -D "FARM_ROOT=$farm_root" $HALFPIPE_ONLINETASK > $submit_file
+    
+#    [[ $HALFPIPE_STARTONLINE -eq 0 ]] || \
+#	/afs/slac.stanford.edu/g/glast/ground/bin/pipeline -m ${HALFPIPE_PLFLAVOR} createStream \
+#	-D "EVENT_FILE=$f" -D "ANALYSIS_QUEUE=$queue" -D "ANALYSIS_ALGORITHM=$alg" -D "RUN_ID=$runid" \
+#	-D "FLAVOR=`echo $flavor | awk -F_ '{print $2}'`" -D "FARM_ROOT=$farm_root" $HALFPIPE_ONLINETASK
 done

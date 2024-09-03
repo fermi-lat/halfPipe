@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 
 import cStringIO, datetime, getpass, glob, os, pprint, smtplib, socket, sys
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -vx
 #
 # DeliverEvents.sh <stagedir> <force> <lsfdir>
 #
@@ -24,8 +24,8 @@
 #
 
 # use scratch as tmp if available
-if [ -d /scratch ] ; then
-    export TMPDIR=/scratch
+if [ -d ${LSCRATCH} ] ; then
+    export TMPDIR=${LSCRATCH}
 fi
 
 # get the command-line arguments

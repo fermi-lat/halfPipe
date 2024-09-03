@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import datetime, logging, os, pprint, subprocess, sys
 from collections import defaultdict
 

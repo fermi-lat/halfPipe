@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -vx
 #
 # script to clean up temporary .evt and .idx files
 #
@@ -11,14 +11,16 @@ trap 'rm -f $lock_file' EXIT
 rm -f ${HALFPIPE_OUTPUTBASE}/lock/halfpipe-${HALFPIPE_DOWNLINKID}
 
 # Set up the environment for FlightOps code.
-flavor=`cat ${taskBase}/config/flavor`
+#flavor=`cat ${taskBase}/config/flavor`
+flavor=${fosFlavor}
 platform=`/afs/slac/g/glast/isoc/flightOps/isoc-platform`
-echo "using ISOC platform $platform flavor $flavor with halfPipe v6r2p0"
+echo "using ISOC platform $platform flavor $flavor with halfPipe v7r0p0"
 eval `/afs/slac/g/glast/isoc/flightOps/${platform}/${flavor}/bin/isoc isoc_env --add-env=flightops`
+#export mypython='shisoc --add-env=flightops python'
 
-# use scratch as tmp if available
-if [ -d /scratch ] ; then
-    export TMPDIR=/scratch
+# use scratch as tmp if available                                                                                               
+if [ -d ${LSCRATCH} ] ; then
+    export TMPDIR=${LSCRATCH}
 fi
 
 # bail out if not configured to run

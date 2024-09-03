@@ -5,6 +5,8 @@
 #                     Leland Stanford Junior University.
 #                            All rights reserved.
 #
+# #!/afs/slac/g/glast/isoc/flightOps/rhel6_gcc44/ISOC_TEST/bin/shisoc --add-env=flightops python
+
 
 """Scan the output of getLSEChunk.exe for exceptions and post a
 message to the central event log for each one (event type

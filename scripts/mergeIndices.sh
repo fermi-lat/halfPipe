@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/bin/bash -vx
 #
 # script to merge chunk indices into acquisitions
 #
 
 # Set up the environment for FlightOps code.
-flavor=`cat ${taskBase}/config/flavor`
+#flavor=`cat ${taskBase}/config/flavor`
+flavor=${fosFlavor}
 platform=`/afs/slac/g/glast/isoc/flightOps/isoc-platform`
 echo "using ISOC platform $platform flavor $flavor with halfPipe v6r2p0"
 eval `/afs/slac/g/glast/isoc/flightOps/${platform}/${flavor}/bin/isoc isoc_env --add-env=flightops`
@@ -13,12 +14,13 @@ eval `/afs/slac/g/glast/isoc/flightOps/${platform}/${flavor}/bin/isoc isoc_env -
 export LD_LIBRARY_PATH=/afs/slac/g/glast/ground/GLAST_EXT/rh9_gcc32/MYSQL/4.1.22/lib/mysql:$LD_LIBRARY_PATH
 
 # use scratch as tmp if available
-if [ -d /scratch ] ; then
-    export TMPDIR=/scratch
+echo "LSCRATCH=$LSCRATCH"
+if [ -d $LSCRATCH ] ; then
+    export TMPDIR=$LSCRATCH
 fi
 
 # to deal with compressed data, we need access to FMX
-export FMX_C_FDB=/afs/slac.stanford.edu/g/glast/fmx
+export FMX_C_FDB="$HALFPIPE_FMXROOT"
 
 # set up the per-chunk environment variables
 export HP_OUTPUTDIR="$HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID"
@@ -44,11 +46,12 @@ rm l0key.xsl
 
 # get the list of run-starts present in the directory and block the
 # cleanup-run processing for L1Proc
-runstarts=`find . -name '????????-????????-????-?????.idx' -maxdepth 1 -print | awk -F- '{print $2}' | sort -u`
+runstarts=`find .  -maxdepth 1 -name '????????-????????-????-?????.idx' -print | awk -F- '{print $2}' | sort -u`
 tokendir=`cat ${taskBase}/config/stagedir`/chunktokens
 for rst in $runstarts ; do
     rst_upper=$(echo $rst | tr '[a-f]' '[A-F]')
-    runid=r0$(echo "ibase=16; $rst_upper" | bc)
+    # runid=r0$(echo "ibase=16; $rst_upper" | bc)
+    runid=$(printf "r0%d" 0x$rst_upper)
     echo "creating chunktoken directory ${tokendir}/${runid}"
     mkdir -p ${tokendir}/${runid}
     touch ${tokendir}/${runid}/haltCleanup-${HALFPIPE_DOWNLINKID}
@@ -56,19 +59,37 @@ done
 echo "created chunk-token lockfiles:"
 ls -l ${tokendir}/r*/haltCleanup-${HALFPIPE_DOWNLINKID}
 
+echo "MOOT_ARCHIVE=$MOOT_ARCHIVE"
+echo "MOOT_XML=$MOOT_XML"
 # run the posting application, make sure to use the right MOOT database...
 if [ x"$flavor" != "xISOC_PROD" ] ; then
-    export MOOT_ARCHIVE=/afs/slac/g/glast/moot/srcArchive-test/
+    #    export MOOT_ARCHIVE=/afs/slac/g/glast/moot/srcArchive-test/    # /sdf/group/fermi/a/moot/srcArchive-test
+    export MOOT_ARCHIVE=/afs/slac/g/glast/moot/archive-mood_test/    # /sdf/group/fermi/a/moot/archive-mood_test
 fi
+echo "after tampering ..."
+echo "MOOT_ARCHIVE=$MOOT_ARCHIVE"
+echo "MOOT_XML=$MOOT_XML"
 echo "posting summary information with MOOT_ARCHIVE = $MOOT_ARCHIVE"
+ls $MOOT_ARCHIVE
+
+#ldd ${taskBase}/scripts/AcqSummary.py
+
 time python ${taskBase}/scripts/AcqSummary.py -p glastops -d $HALFPIPE_DOWNLINKID -k $l0key \
     -i $HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID --load --retire --evttimes -f $HALFPIPE_OUTPUTBASE/force --moot || exit 1
 
+echo "AcqSummary passed"
+
+type pipelineCreateStream
+which pipelineCreateStream
+
 # spin off the merging substreams
+#pipelineCreateStream CANNOT WORK:
 iStream=0
 for rst in $runstarts ; do
     rst_upper=$(echo $rst | tr '[a-f]' '[A-F]')
-    rst_decimal=$(echo "ibase=16; $rst_upper" | bc)
-    pipelineCreateStream doMerge ${rst_decimal} "HALFPIPE_RUNSTART=\"${rst}\""
+    #rst_decimal=$(echo "ibase=16; $rst_upper" | bc)
+    rst_decimal=$(printf "%d" 0x$rst_upper)
+    #    pipelineCreateStream doMerge ${rst_decimal} "HALFPIPE_RUNSTART=\"${rst}\""
+    echo -e "HALFPIPE_RUNSTART_DEX=${rst_decimal}\nHALFPIPE_RUNSTART=${rst}" > ${HP_OUTPUTDIR}/r0${rst_decimal}_doMerge.txt
+    echo "saved file" ${HP_OUTPUTDIR}/r0${rst_decimal}_doMerge.txt
 done
-

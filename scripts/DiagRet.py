@@ -1,5 +1,6 @@
-#! /usr/bin/env python2.5
+#!/usr/bin/env python
 #
+# /afs/slac/g/glast/isoc/flightOps/rhel5_gcc41/${fosFlavor}/bin/shisoc --add-env=flightops python
 # /nfs/slac/g/glast/ground/cvs/CHS/halfPipe/scripts/DiagRet.py,v 1.1 2008/06/27 23:44:12 blee Exp
 
 import csv
