@@ -15,9 +15,9 @@
     2007-10-09 RBL: bump revision to clear stream list in Prod
     2007-10-09 RBL: bump revision to clear stream list in Prod
 -->
-  <task name="HalfPipe-s3df" type="Data" version="1.70">
+  <task name="HalfPipe-s3df" type="Data" version="1.71">
     <variables>
-      <var name="logRoot">/sdf/group/fermi/ground/PipelineOutput/halfPipe/logs/${pipelineFlavor}</var>
+      <var name="logRoot">/sdf/data/fermi/ground/PipelineOutput/halfPipe/logs/${pipelineFlavor}</var>
       <var name="JOBSITE">S3DFDATA</var>
       <var name="WALL_TIME"> 0:30:00 </var>             <!-- 15 minutes by default. Format: H:M:S -->
       <var name="MAX_CPU">1</var>
