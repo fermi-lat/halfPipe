@@ -3,9 +3,11 @@ import os
 import sys
 
 run=False
-run=True
+#run=True
 
-mode = 'DEV'
+taskBase = '/sdf/group/fermi/ground/PipelineConfig/HalfPipe'
+fmxRoot  = '/sdf/group/fermi/a/fmx'
+mode     = 'DEV'
 
 downlinkID = 230401008
 outputBase = '/sdf/group/fermi/a/isoc/flightOps/volumes/vol5/offline/halfPipe/v7r0p0_devel/u42/ISOC-flight/Downlinks'
@@ -22,10 +24,14 @@ fosFlavor  = 'ISOC_' + pipelineFlavor
 pipeline='/sdf/group/fermi/sw/pipeline-II/dev/pipeline'
 #pipeline='/sdf/home/g/glast/a/pipeline-II/dev/pipeline'
 
-chunks = { 230401001: 10, 230401002: 10, 230401003: 14,               230401005: 10, 230401006: 10, 230401007:  8, 230401008: 10, 230401009: 10, 230401010:  8,
-           230401011: 12, 230401012:  8, 230401013: 14, 230401014: 9, 230401015:  6, 230401016:  6, 230401017:  4, 230401018:  6,
-                          240328012: 14, 240328013:  6,
-                          240414002:  6 }
+chunks = { 230401001: 10, 230401002: 10, 230401003: 14,
+           230401005: 10, 230401006: 10, 230401007:  8,
+           230401008: 10, 230401009: 10, 230401010:  8,
+           230401011: 12, 230401012:  8, 230401013: 14,
+           230401014: 9, 230401015:  6, 230401016:  6,
+           230401017:  4, 230401018:  6,
+           240328012: 14, 240328013:  6,
+           240414002:  6 }
 
 try:
     numChunks = chunks[downlinkID]
@@ -42,8 +48,8 @@ options={
     'outputBase':outputBase,
     'level1Name':'L1Proc',
     'maxEvents':125000,
-    'taskBase':'/sdf/group/fermi/a/isoc/flightOps/volumes/vol5/offline/halfPipe/v7r0p0_devel',
-    'fmxRoot':'/sdf/group/fermi/a/fmx',
+    'taskBase':taskBase,
+    'fmxRoot':fmxRoot,
     'onlineName':'intOnlineAnalysis',
     'startL1':1,
     'startOnline':0
@@ -63,7 +69,6 @@ if run: os.system(cmd)
 # Copy from Downlinks on rhel6:
 cmd='scp -rp omodei@rhel6-64:/nfs/farm/g/glast/u42/ISOC-flight/Downlinks/%s %s/.' % (options['downlinkID'],options['outputBase'])
 print (cmd)
-
 
 cmd='%s createStream  HalfPipe-s3df' % pipeline
 for k,v in options.items():
