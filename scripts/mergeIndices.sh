@@ -47,7 +47,16 @@ rm l0key.xsl
 # get the list of run-starts present in the directory and block the
 # cleanup-run processing for L1Proc
 runstarts=`find .  -maxdepth 1 -name '????????-????????-????-?????.idx' -print | awk -F- '{print $2}' | sort -u`
-tokendir=`cat ${taskBase}/config/stagedir`/chunktokens
+
+stagedir=`cat ${taskBase}/config/stagedir`
+
+if [[ $flavor =~ "TEST" ]]; then
+    echo "mergeIndexes::Found 'TEST' in $flavor"
+    stagedir=${stagedir}Test
+fi
+
+tokendir=${stagedir}/chunktokens
+
 for rst in $runstarts ; do
     rst_upper=$(echo $rst | tr '[a-f]' '[A-F]')
     # runid=r0$(echo "ibase=16; $rst_upper" | bc)

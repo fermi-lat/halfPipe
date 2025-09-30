@@ -1,8 +1,13 @@
-#!/bin/bash -vx
+#!/bin/bash
 #
 # script to deliver events for and launch Online analysis
 #
-
+$prolog_script
+return_code=$?
+# Check the return code
+if [ $return_code -eq 1 ]; then
+  exit 1
+fi
 # make sure the lockfile gets removed
 lock_file="${HALFPIPE_OUTPUTBASE}/lock/launchOnline"
 trap 'rm -f $lock_file' EXIT

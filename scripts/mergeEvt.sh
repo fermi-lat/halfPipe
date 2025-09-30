@@ -26,17 +26,23 @@ echo "HALFPIPE_RUNSTART_DEX=${HALFPIPE_RUNSTART_DEX}"
 
 ############################################################### DIRTY HACKS
 # set RUNSTART manually for the time being (or we always get it from here)
-[ -z "${HALFPIPE_RUNSTART}" ] && export HALFPIPE_RUNSTART=$(printf "%x" ${PIPELINE_STREAM})
+#[ -z "${HALFPIPE_RUNSTART}" ] && export HALFPIPE_RUNSTART=$(printf "%x" ${PIPELINE_STREAM})
+export HALFPIPE_RUNSTART=$(printf "%x" ${PIPELINE_STREAM})
+echo "PIPELINE_STREAM=${PIPELINE_STREAM}"
 echo "HALFPIPE_RUNSTART=${HALFPIPE_RUNSTART}"
 
 # just make everything writeable
 #ls -ld ${HALFPIPE_OUTPUTBASE}
 #chmod -R a+w ${HALFPIPE_OUTPUTBASE}
 #############################################################################
-
+$prolog_script
+return_code=$?
+# Check the return code
+if [ $return_code -eq 1 ]; then
+  exit 1
+fi
 # make sure the lockfile gets removed
-lock_file="${HALFPIPE_OUTPUTBASE}/lock/${HALFPIPE_RUNSTART}"
-ls -l $lock_file
+lock_file="${HALFPIPE_OUTPUTBASE}/lock/${PIPELINE_STREAM}"
 # exit 1
 trap 'rm -f $lock_file' EXIT
 
@@ -124,6 +130,12 @@ if [ -d $destdir ] ; then
     rm -rvf $destdir
 fi
 stagedir=`cat ${taskBase}/config/stagedir`
+
+if [[ $flavor =~ "TEST" ]]; then
+    echo "mergeEvt::Found 'TEST' in $flavor"
+    stagedir=${stagedir}Test
+fi
+
 tokendir=${stagedir}/chunktokens/${destdir}
 destdir=${stagedir}/${HALFPIPE_DOWNLINKID}/$destdir
 rm -rvf $destdir

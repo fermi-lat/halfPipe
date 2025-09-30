@@ -14,6 +14,7 @@ echo ${TMPDIR}
 #ls -ld ${HALFPIPE_OUTPUTBASE}
 
 # create an overall lockfile for this stream
+
 lockFile=${HALFPIPE_OUTPUTBASE}/lock/halfpipe-${HALFPIPE_DOWNLINKID}
 : > ${lockFile}
 ls -l ${lockFile}

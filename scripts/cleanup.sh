@@ -3,6 +3,12 @@
 # script to clean up temporary .evt and .idx files
 #
 
+$prolog_script
+return_code=$?
+# Check the return code
+if [ $return_code -eq 1 ]; then
+  exit 1
+fi
 # make sure the lockfile gets removed
 lock_file="${HALFPIPE_OUTPUTBASE}/lock/cleanup"
 trap 'rm -f $lock_file' EXIT

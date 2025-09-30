@@ -83,6 +83,10 @@ fi
 # copy the results to the pipeline-staging area
 echo "staging data for L1Proc"
 stagedir=`cat ${taskBase}/config/stagedir`
+if [[ $flavor =~ "TEST" ]]; then
+    echo "Found 'TEST' in $flavor"
+    stagedir=${stagedir}Test
+fi
 #cp -p *.txt ${stagedir}/${HALFPIPE_DOWNLINKID} || exit 1
 cp --preserve=timestamps,ownership *.txt ${stagedir}/${HALFPIPE_DOWNLINKID} || exit 1
 
@@ -90,7 +94,7 @@ cp --preserve=timestamps,ownership *.txt ${stagedir}/${HALFPIPE_DOWNLINKID} || e
 rm -f magic7_${HALFPIPE_DOWNLINKID}.txt
 
 # remove the chunktokens locks
-tokendir=`cat ${taskBase}/config/stagedir`/chunktokens
+tokendir=${stagedir}/chunktokens
 echo "removing chunk-tokens lockfiles:"
 ls -l ${tokendir}/r*/haltCleanup-${HALFPIPE_DOWNLINKID}
 rm -f ${tokendir}/r*/haltCleanup-${HALFPIPE_DOWNLINKID}
@@ -107,12 +111,12 @@ fi
 
 # make sure enough Java-stuff is on the path
 export PATH=/usr/local/bin:bin:/usr/bin:$PATH
-echo "Submitting task: ${HALFPIPE_L1TASK}"
-submit_file=$HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID/createStream_$HALFPIPE_L1TASK.sh
-echo 'echo Noting to submit!' > $submit_file
-[[ $HALFPIPE_STARTL1 -eq 0 ]] ||
-    echo 'echo Submit!' > $submit_file
-chmod a+x $submit_file
+#echo "Submitting task: ${HALFPIPE_L1TASK}"
+#submit_file=$HALFPIPE_OUTPUTBASE/$HALFPIPE_DOWNLINKID/createStream_$HALFPIPE_L1TASK.sh
+#echo 'echo Noting to submit!' > $submit_file
+#[[ $HALFPIPE_STARTL1 -eq 0 ]] ||
+#    echo 'echo Submit!' > $submit_file
+#chmod a+x $submit_file
 #echo /sdf/group/fermi/sw/pipeline-II/dev/pipeline -m ${HALFPIPE_PLFLAVOR} createStream \
     #	 -S $HALFPIPE_DOWNLINKID \
     #	 -D "DOWNLINK_ID=${HALFPIPE_DOWNLINKID}" \
@@ -121,9 +125,12 @@ chmod a+x $submit_file
 # We can try this with the new bind mounts (see start_rhel6.sh)
 # dispatch the L1 pipeline for this downlink.
 [[ $HALFPIPE_STARTL1 -eq 0 ]] || \
-    exec /sdf/group/fermi/sw/pipeline-II/dev/pipeline -m ${mode} createStream \
-	 TonyHelloS3DF
-         #-S $HALFPIPE_DOWNLINKID \
-         #-D "DOWNLINK_ID=${HALFPIPE_DOWNLINKID}" \
-         #-D "DOWNLINK_RAWDIR=${stagedir}/${HALFPIPE_DOWNLINKID}" \
+    exec /sdf/group/fermi/sw/pipeline-II/dev/pipeline -m ${pipelineFlavor} createStream \
+	 -S $HALFPIPE_DOWNLINKID \
+         -D "DOWNLINK_ID=${HALFPIPE_DOWNLINKID}" \
+         -D "DOWNLINK_RAWDIR=${stagedir}/${HALFPIPE_DOWNLINKID}" \
+	 $HALFPIPE_L1TASK
+         #TonyHelloS3DF
          #$HALFPIPE_L1TASK
+
+#TonyHelloS3DF
